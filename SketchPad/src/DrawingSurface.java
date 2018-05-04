@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -16,12 +17,12 @@ public class DrawingSurface extends PApplet {
 	public DrawingSurface() 
 	{
 		tools = new ArrayList<Tool>();
-		tools.add(new Tool(0, 100, 100, 10));
-		tools.add(new Tool(100, 20, 100, 10));
-		tools.add(new Tool(200, 100, 40, 10));
-		tools.add(new Tool(30, 250, 60, 10));
-		tools.add(new Tool(70, 180, 100, 10));
-		tools.add(new Tool(80, 60, 80, 10));
+		tools.add(new Tool(Color.YELLOW, 10));
+		tools.add(new Tool(Color.RED, 10));
+		tools.add(new Tool(Color.ORANGE.darker().darker(), 10));
+		tools.add(new Tool(Color.BLUE, 10));
+		tools.add(new Tool(Color.CYAN, 10));
+		tools.add(new Tool(Color.GREEN, 10));
 
 		poly = new ArrayList<Layer>();
 		poly.add(new Layer());

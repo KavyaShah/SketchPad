@@ -39,7 +39,7 @@ public class DrawingSurface extends PApplet {
 	public void draw() 
 	{
 		background(255);   // Clear the screen with a white background
-		//fill(255);
+		fill(255);
 		textAlign(CENTER);
 		//textSize(12);
 		
@@ -49,6 +49,8 @@ public class DrawingSurface extends PApplet {
 		}
 	
 		stroke(0);
+		strokeWeight(40);
+
 			
 	}
 	

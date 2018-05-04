@@ -16,12 +16,16 @@ public class DrawingSurface extends PApplet {
 	public DrawingSurface() 
 	{
 		tools = new ArrayList<Tool>();
-		for (int i = 0; i < 6; i++)
-		{
-			tools.add(new Tool());
-		}
+		tools.add(new Tool(0, 100, 100, 10));
+		tools.add(new Tool(100, 20, 100, 10));
+		tools.add(new Tool(200, 100, 40, 10));
+		tools.add(new Tool(30, 250, 60, 10));
+		tools.add(new Tool(70, 180, 100, 10));
+		tools.add(new Tool(80, 60, 80, 10));
+
 		poly = new ArrayList<Layer>();
 		poly.add(new Layer());
+		poly.get(poly.size()-1).setToolUsed(tools.get(0));
 		runSketch();
 	}
 	
@@ -41,7 +45,7 @@ public class DrawingSurface extends PApplet {
 		background(255);   // Clear the screen with a white background
 		fill(255);
 		textAlign(CENTER);
-		//textSize(12);
+		//textSize(12);0
 		
 		for (Layer i: poly)
 		{
@@ -63,14 +67,17 @@ public class DrawingSurface extends PApplet {
 		} 
 	}
 	
-	public void mouseReleased() {
+	public void mouseReleased() 
+	{
 		poly.add(new Layer());
+		poly.get(poly.size()-1).setToolUsed(tools.get((int)(Math.random()*6)));
 	}
 	
 	public void keyPressed() {
 		poly.remove(poly.size()-2);		
 		poly.remove(poly.size()-1);
 		poly.add(new Layer());
+		poly.get(poly.size()-1).setToolUsed(tools.get(0));
 	}
 
 }

@@ -42,8 +42,8 @@ public class Layer extends Shape {
    {
 	   marker.pushStyle();
 	   float x1, x2 = 0, y1, y2 = 0;
-	   marker.strokeWeight(40);//toolUsed.getThickness());
-	   marker.stroke(40);//toolUsed.getColor().getRGB());
+	   marker.strokeWeight(toolUsed.getThickness());
+	   marker.stroke(toolUsed.getColor().getRGB());
 	   for (int i = 0; i < myPolygon.size() - 1; i++)
 	   {
 		   x1 = (float)myPolygon.get(i).x;

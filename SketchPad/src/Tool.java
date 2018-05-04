@@ -13,6 +13,12 @@ public class Tool
 		color = c;
 		thickness = t;
 	}
+	
+	public Tool(int r, int g, int b, int t)
+	{
+		color = new Color(r, g, b);
+		thickness = t;
+	}
 
 	public Tool()
 	{

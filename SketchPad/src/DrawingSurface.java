@@ -7,16 +7,18 @@ import processing.core.PApplet;
 
 
 public class DrawingSurface extends PApplet {
-
+	
 	private ArrayList<Layer> poly;
 	private ArrayList <Tool> tools;
-	
+	ToolBar t;
 	private int ANIMATION_TIME = 100;
 	private float x,y,time;
 	
-	public DrawingSurface() 
+	
+	public DrawingSurface(ToolBar t) 
 	{
-		tools = new ArrayList<Tool>();
+		this.t = t;
+		/*tools = new ArrayList<Tool>();
 		tools.add(new Tool(Color.YELLOW, 10));
 		tools.add(new Tool(Color.RED, 10));
 		tools.add(new Tool(Color.ORANGE.darker().darker(), 10));
@@ -26,7 +28,10 @@ public class DrawingSurface extends PApplet {
 
 		poly = new ArrayList<Layer>();
 		poly.add(new Layer());
-		poly.get(poly.size()-1).setToolUsed(tools.get(0));
+		poly.get(poly.size()-1).setToolUsed(tools.get(0));*/
+		poly = new ArrayList<Layer>();
+		poly.add(new Layer());
+		poly.get(poly.size()-1).setToolUsed(this.t.getCurrentTool());
 		runSketch();
 	}
 	
@@ -71,14 +76,15 @@ public class DrawingSurface extends PApplet {
 	public void mouseReleased() 
 	{
 		poly.add(new Layer());
-		poly.get(poly.size()-1).setToolUsed(tools.get((int)(Math.random()*6)));
+		//poly.get(poly.size()-1).setToolUsed(tools.get((int)(Math.random()*6)));
+		poly.get(poly.size()-1).setToolUsed(t.getCurrentTool());
 	}
 	
 	public void keyPressed() {
 		poly.remove(poly.size()-2);		
 		poly.remove(poly.size()-1);
 		poly.add(new Layer());
-		poly.get(poly.size()-1).setToolUsed(tools.get(0));
+		poly.get(poly.size()-1).setToolUsed(t.getCurrentTool());
 	}
 
 }

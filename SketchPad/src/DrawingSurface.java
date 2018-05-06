@@ -81,6 +81,14 @@ public class DrawingSurface extends PApplet {
 		//poly.get(poly.size()-1).setToolUsed(tools.get((int)(Math.random()*6)));
 		poly.get(poly.size()-1).setToolUsed(t.getCurrentTool());
 	}
+	public void removeLayer()
+	{
+		poly.remove(poly.size()-2);		
+		poly.remove(poly.size()-1);
+		poly.add(new Layer());
+		poly.get(poly.size()-1).setToolUsed(t.getCurrentTool());
+	}
+
 	
 	public void keyPressed() {
 		poly.remove(poly.size()-2);		

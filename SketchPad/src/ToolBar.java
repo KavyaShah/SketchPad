@@ -23,7 +23,7 @@ import javax.swing.JSlider;
 
 public class ToolBar implements ActionListener, ChangeListener {
 
-	private JButton blue, yellow, saveTool, savedTool1, savedTool2, savedTool3, savedTool4, savedTool5, savedTool6;
+	private JButton blue, yellow, saveTool, savedTool1, savedTool2, savedTool3, savedTool4, savedTool5, savedTool6, eraser;
 	private JSlider thickness;
 	private int savedTools = 0;
 	private JMenuBar myMenu;
@@ -72,6 +72,10 @@ public class ToolBar implements ActionListener, ChangeListener {
 		saveTool = new JButton("Save");
 		saveTool.addActionListener(this);
 		myMenu.add(saveTool);
+		
+		eraser = new JButton("Eraser");
+		eraser.addActionListener(this);
+		myMenu.add(eraser);
 		
 		thickness = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
 		thickness.addChangeListener(this);
@@ -124,6 +128,9 @@ public class ToolBar implements ActionListener, ChangeListener {
 		else if(s.getText().equals("Saved Tool 6")) {
 			if(tools[5]!=null)
 			currentTool = tools[5];
+		}
+		else if(s.getText().equals("Eraser")) {
+			currentTool = new Tool(Color.WHITE, currentTool.getThickness());
 		}
 		
 		

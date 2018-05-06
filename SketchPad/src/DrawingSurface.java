@@ -66,11 +66,13 @@ public class DrawingSurface extends PApplet {
 	
 	public void mouseDragged() {
 		if (mouseButton == LEFT) {
+			poly.get(poly.size()-1).setToolUsed(t.getCurrentTool());
 			poly.get(poly.size() -1).add(mouseX,mouseY);
 			x = mouseX;
 			y = mouseY;
 			time = ANIMATION_TIME;
 		} 
+
 	}
 	
 	public void mouseReleased() 

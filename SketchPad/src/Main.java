@@ -30,7 +30,7 @@ public class Main  {
 
 		
 		
-		window.setSize(600, 500);
+		window.setSize(1200, 700);
 		window.setMinimumSize(new Dimension(100, 100));
 		
 	

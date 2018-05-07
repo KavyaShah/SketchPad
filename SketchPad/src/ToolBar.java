@@ -2,6 +2,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -9,8 +10,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
@@ -18,12 +21,17 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.MenuListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
 import javax.swing.JSlider;
 
 public class ToolBar implements ActionListener, ChangeListener {
 
-	private JButton blue, yellow, saveTool, savedTool1, savedTool2, savedTool3, savedTool4, savedTool5, savedTool6, eraser;
+	private JRadioButton blue, navy, green, yellow, red, pink, savedTool1, savedTool2, savedTool3, savedTool4,
+			savedTool5, savedTool6;
+	private JButton saveTool, eraser;
 	private JSlider thickness;
 	private int savedTools = 0;
 	private JMenuBar myMenu;
@@ -34,49 +42,88 @@ public class ToolBar implements ActionListener, ChangeListener {
 	public ToolBar() {
 
 		myMenu = new JMenuBar();
+		
+		JToolBar colorsBar = new JToolBar(JToolBar.VERTICAL);
+		ButtonGroup colorButtons = new ButtonGroup();
 
-		myMenu.setLayout(new BoxLayout(myMenu, BoxLayout.PAGE_AXIS));
+		navy = new JRadioButton("Navy Blue");
+		navy.addActionListener(this);
+		colorButtons.add(navy);
+		colorsBar.add(navy);
 
-		blue = new JButton("Blue");
+		blue = new JRadioButton("Sky Blue");
 		blue.addActionListener(this);
-		myMenu.add(blue);
+		colorButtons.add(blue);
+		colorsBar.add(blue);
+		
+		green = new JRadioButton("Green");
+		green.addActionListener(this);
+		colorButtons.add(green);
+		colorsBar.add(green);
 
-		yellow = new JButton("Yellow");
+		yellow = new JRadioButton("Yellow");
 		yellow.addActionListener(this);
-		myMenu.add(yellow);
-		
-		savedTool1 = new JButton("Saved Tool 1");
+		colorButtons.add(yellow);
+		colorsBar.add(yellow);
+
+		red = new JRadioButton("Red");
+		red.addActionListener(this);
+		colorButtons.add(red);
+		colorsBar.add(red);
+
+		pink = new JRadioButton("Pink");
+		pink.addActionListener(this);
+		colorButtons.add(pink);
+		colorsBar.add(pink);
+
+		colorsBar.add(new JLabel("Colors"));
+		myMenu.add(colorsBar);
+
+		JToolBar savedToolBar = new JToolBar(JToolBar.VERTICAL);
+		ButtonGroup savedTools = new ButtonGroup();
+
+		savedTool1 = new JRadioButton("Saved Tool 1");
 		savedTool1.addActionListener(this);
-		myMenu.add(savedTool1);
-		
-		savedTool2 = new JButton("Saved Tool 2");
+		savedTools.add(savedTool1);
+		savedToolBar.add(savedTool1);
+
+		savedTool2 = new JRadioButton("Saved Tool 2");
 		savedTool2.addActionListener(this);
-		myMenu.add(savedTool2);
-		
-		savedTool3 = new JButton("Saved Tool 3");
+		savedToolBar.add(savedTool2);
+		savedTools.add(savedTool2);
+
+		savedTool3 = new JRadioButton("Saved Tool 3");
 		savedTool3.addActionListener(this);
-		myMenu.add(savedTool3);
-		
-		savedTool4 = new JButton("Saved Tool 4");
+		savedToolBar.add(savedTool3);
+		savedTools.add(savedTool4);
+
+		savedTool4 = new JRadioButton("Saved Tool 4");
 		savedTool1.addActionListener(this);
-		myMenu.add(savedTool4);
-		
-		savedTool5 = new JButton("Saved Tool 5");
+		savedToolBar.add(savedTool4);
+		savedTools.add(savedTool4);
+
+		savedTool5 = new JRadioButton("Saved Tool 5");
 		savedTool5.addActionListener(this);
-		myMenu.add(savedTool5);
-		
-		savedTool6 = new JButton("Saved Tool 6");
+		savedToolBar.add(savedTool5);
+		savedTools.add(savedTool5);
+
+		savedTool6 = new JRadioButton("Saved Tool 6");
 		savedTool6.addActionListener(this);
-		myMenu.add(savedTool6);
-		
-		saveTool = new JButton("Save");
-		saveTool.addActionListener(this);
-		myMenu.add(saveTool);
-		
+		savedToolBar.add(savedTool6);
+		savedTools.add(savedTool6);
+
+		myMenu.add(savedToolBar);
+		savedToolBar.add(new JLabel("Saved Tools"));
+
 		eraser = new JButton("Eraser");
 		eraser.addActionListener(this);
 		myMenu.add(eraser);
-		
+
+		saveTool = new JButton("Save");
+		saveTool.addActionListener(this);
+		myMenu.add(saveTool);
+
+		myMenu.add(new JLabel("Tools"));
 		thickness = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
 		thickness.addChangeListener(this);
 		thickness.setMajorTickSpacing(10);
@@ -84,57 +131,53 @@ public class ToolBar implements ActionListener, ChangeListener {
 		thickness.setLabelTable(thickness.createStandardLabels(10));
 		thickness.setPaintLabels(true);
 		myMenu.add(thickness);
-		
-		
+
 		currentTool = new Tool(Color.BLACK, 10);
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		JButton s = (JButton) e.getSource();
-		if (s.getText().equals("Blue"))
-			currentTool = new Tool(Color.BLUE, currentTool.getThickness());
+		AbstractButton s = (AbstractButton) e.getSource();
+		if (s.getText().equals("Sky Blue"))
+			currentTool = new Tool(Color.CYAN, currentTool.getThickness());
 		else if (s.getText().equals("Yellow")) {
 			currentTool = new Tool(Color.YELLOW, currentTool.getThickness());
-		}
-		else if(s.getText().equals("Save")) {
-			if(savedTools <=5) {
+		} else if (s.getText().equals("Red")) {
+			currentTool = new Tool(Color.RED, currentTool.getThickness());
+		} else if (s.getText().equals("Pink")) {
+			currentTool = new Tool(Color.MAGENTA, currentTool.getThickness());
+		} else if (s.getText().equals("Navy Blue")) {
+			currentTool = new Tool(Color.BLUE, currentTool.getThickness());
+		} else if (s.getText().equals("Green")) {
+			currentTool = new Tool(Color.GREEN, currentTool.getThickness());
+		} else if (s.getText().equals("Save")) {
+			if (savedTools <= 5) {
 				tools[savedTools] = new Tool(currentTool.getColor(), currentTool.getThickness());
 				savedTools++;
 			}
-			
-		}
-		else if(s.getText().equals("Saved Tool 1")) {
-			if(tools[0]!=null)
-			currentTool = tools[0];
-		}
-		else if(s.getText().equals("Saved Tool 2")) {
-			if(tools[1]!=null)
-			currentTool = tools[1];
-		}
-		else if(s.getText().equals("Saved Tool 3")) {
-			if(tools[2]!=null)
-			currentTool = tools[2];
-		}
-		else if(s.getText().equals("Saved Tool 4")) {
-			if(tools[3]!=null)
-			currentTool = tools[3];
-		}
-		else if(s.getText().equals("Saved Tool 5")) {
-			if(tools[4]!=null)
-			currentTool = tools[4];
-		}
-		else if(s.getText().equals("Saved Tool 6")) {
-			if(tools[5]!=null)
-			currentTool = tools[5];
-		}
-		else if(s.getText().equals("Eraser")) {
+
+		} else if (s.getText().equals("Saved Tool 1")) {
+			if (tools[0] != null)
+				currentTool = tools[0];
+		} else if (s.getText().equals("Saved Tool 2")) {
+			if (tools[1] != null)
+				currentTool = tools[1];
+		} else if (s.getText().equals("Saved Tool 3")) {
+			if (tools[2] != null)
+				currentTool = tools[2];
+		} else if (s.getText().equals("Saved Tool 4")) {
+			if (tools[3] != null)
+				currentTool = tools[3];
+		} else if (s.getText().equals("Saved Tool 5")) {
+			if (tools[4] != null)
+				currentTool = tools[4];
+		} else if (s.getText().equals("Saved Tool 6")) {
+			if (tools[5] != null)
+				currentTool = tools[5];
+		} else if (s.getText().equals("Eraser")) {
 			currentTool = new Tool(Color.WHITE, currentTool.getThickness());
 		}
-		
-		
-			
 
 	}
 
@@ -151,8 +194,8 @@ public class ToolBar implements ActionListener, ChangeListener {
 		JSlider source = (JSlider) e.getSource();
 		if (!source.getValueIsAdjusting()) {
 			int thick = (int) source.getValue();
-			currentTool= new Tool(currentTool.getColor(), thick);
+			currentTool = new Tool(currentTool.getColor(), thick);
 		}
-		
+
 	}
 }

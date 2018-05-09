@@ -71,10 +71,10 @@ public class ToolBar implements ActionListener, ChangeListener {
 		colorButtons.add(red);
 		colorsBar.add(red);
 
-		/*pink = new JRadioButton("Pink");
+		pink = new JRadioButton("Pink");
 		pink.addActionListener(this);
 		colorButtons.add(pink);
-		colorsBar.add(pink);*/
+		colorsBar.add(pink);
 		colorsBar.add(Box.createVerticalGlue());
 
 		colorsBar.add(new JLabel("Colors"));

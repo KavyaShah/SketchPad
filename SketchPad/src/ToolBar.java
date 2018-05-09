@@ -71,10 +71,11 @@ public class ToolBar implements ActionListener, ChangeListener {
 		colorButtons.add(red);
 		colorsBar.add(red);
 
-		pink = new JRadioButton("Pink");
+		/*pink = new JRadioButton("Pink");
 		pink.addActionListener(this);
 		colorButtons.add(pink);
-		colorsBar.add(pink);
+		colorsBar.add(pink);*/
+		colorsBar.add(Box.createVerticalGlue());
 
 		colorsBar.add(new JLabel("Colors"));
 		myMenu.add(colorsBar);
@@ -95,7 +96,7 @@ public class ToolBar implements ActionListener, ChangeListener {
 		savedTool3 = new JRadioButton("Saved Tool 3");
 		savedTool3.addActionListener(this);
 		savedToolBar.add(savedTool3);
-		savedTools.add(savedTool4);
+		savedTools.add(savedTool3);
 
 		savedTool4 = new JRadioButton("Saved Tool 4");
 		savedTool1.addActionListener(this);
@@ -111,10 +112,21 @@ public class ToolBar implements ActionListener, ChangeListener {
 		savedTool6.addActionListener(this);
 		savedToolBar.add(savedTool6);
 		savedTools.add(savedTool6);
-
+		
+		savedToolBar.add(Box.createVerticalGlue());
 		myMenu.add(savedToolBar);
 		savedToolBar.add(new JLabel("Saved Tools"));
+	
 
+		thickness = new JSlider(JSlider.VERTICAL, 0, 50, 25);
+		thickness.addChangeListener(this);
+		thickness.setMajorTickSpacing(10);
+		thickness.setPaintTicks(true);
+		thickness.setLabelTable(thickness.createStandardLabels(10));
+		thickness.setPaintLabels(true);
+		myMenu.add(thickness);
+
+		
 		eraser = new JButton("Eraser");
 		eraser.addActionListener(this);
 		myMenu.add(eraser);
@@ -124,14 +136,7 @@ public class ToolBar implements ActionListener, ChangeListener {
 		myMenu.add(saveTool);
 
 		myMenu.add(new JLabel("Tools"));
-		thickness = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
-		thickness.addChangeListener(this);
-		thickness.setMajorTickSpacing(10);
-		thickness.setPaintTicks(true);
-		thickness.setLabelTable(thickness.createStandardLabels(10));
-		thickness.setPaintLabels(true);
-		myMenu.add(thickness);
-
+		
 		currentTool = new Tool(Color.BLACK, 10);
 
 	}

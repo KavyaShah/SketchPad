@@ -29,9 +29,11 @@ import javax.swing.JSlider;
 
 public class ToolBar implements ActionListener, ChangeListener {
 
-	private JRadioButton blue, navy, green, yellow, red, pink, savedTool1, savedTool2, savedTool3, savedTool4,
-			savedTool5, savedTool6;
-	private JButton saveTool, eraser;
+	private JRadioButton savedTool1, savedTool2, savedTool3, savedTool4,
+			savedTool5, savedTool6, eraser;
+	private JButton blue, navy, green, yellow, red, pink;
+	JButton[][]colors = new JButton[7][7];
+	private JButton saveTool;
 	private JSlider thickness;
 	private int savedTools = 0;
 	private JMenuBar myMenu;
@@ -43,7 +45,7 @@ public class ToolBar implements ActionListener, ChangeListener {
 
 		myMenu = new JMenuBar();
 		
-		JToolBar colorsBar = new JToolBar(JToolBar.VERTICAL);
+		/*JToolBar colorsBar = new JToolBar(JToolBar.VERTICAL);
 		ButtonGroup colorButtons = new ButtonGroup();
 
 		navy = new JRadioButton("Navy Blue");
@@ -75,67 +77,118 @@ public class ToolBar implements ActionListener, ChangeListener {
 		pink.addActionListener(this);
 		colorButtons.add(pink);
 		colorsBar.add(pink);
+	
 		colorsBar.add(Box.createVerticalGlue());
 
 		colorsBar.add(new JLabel("Colors"));
-		myMenu.add(colorsBar);
+		myMenu.add(colorsBar);*/
 
+		
+		ButtonGroup colorButtons = new ButtonGroup();
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2,3));
+		navy = new JButton("Navy Blue");
+		navy.addActionListener(this);
+		colorButtons.add(navy);
+		colors[0][0] = navy;
+		panel.add(navy);
+
+		blue = new JButton("Sky Blue");
+		blue.addActionListener(this);
+		colorButtons.add(blue);
+		colors[0][1] = blue;
+		panel.add(blue);
+		
+		green = new JButton("Green");
+		green.addActionListener(this);
+		colorButtons.add(green);
+		colors[0][2] = green;
+		panel.add(green);
+
+		yellow = new JButton("Yellow");
+		yellow.addActionListener(this);
+		colorButtons.add(yellow);
+		colors[1][0] = yellow;
+		panel.add(yellow);
+		
+		red = new JButton("Red");
+		red.addActionListener(this);
+		colorButtons.add(red);
+		colors[2][0] = red;
+		panel.add(red);
+		
+		pink = new JButton("Pink");
+		pink.addActionListener(this);
+		colorButtons.add(pink);
+		colors[3][0] = pink;
+		panel.add(pink);
+		
+		
+		//colorsBar.add(Box.createVerticalGlue());
+
+		//colorsBar.add(new JLabel("Colors"));
+	
+		myMenu.add(panel);
+		
 		JToolBar savedToolBar = new JToolBar(JToolBar.VERTICAL);
-		ButtonGroup savedTools = new ButtonGroup();
+		
 
 		savedTool1 = new JRadioButton("Saved Tool 1");
 		savedTool1.addActionListener(this);
-		savedTools.add(savedTool1);
+		colorButtons.add(savedTool1);
 		savedToolBar.add(savedTool1);
 
 		savedTool2 = new JRadioButton("Saved Tool 2");
 		savedTool2.addActionListener(this);
 		savedToolBar.add(savedTool2);
-		savedTools.add(savedTool2);
+		colorButtons.add(savedTool2);
 
 		savedTool3 = new JRadioButton("Saved Tool 3");
 		savedTool3.addActionListener(this);
 		savedToolBar.add(savedTool3);
-		savedTools.add(savedTool3);
+		colorButtons.add(savedTool3);
 
 		savedTool4 = new JRadioButton("Saved Tool 4");
 		savedTool1.addActionListener(this);
 		savedToolBar.add(savedTool4);
-		savedTools.add(savedTool4);
+		colorButtons.add(savedTool4);
 
 		savedTool5 = new JRadioButton("Saved Tool 5");
 		savedTool5.addActionListener(this);
 		savedToolBar.add(savedTool5);
-		savedTools.add(savedTool5);
+		colorButtons.add(savedTool5);
 
 		savedTool6 = new JRadioButton("Saved Tool 6");
 		savedTool6.addActionListener(this);
 		savedToolBar.add(savedTool6);
-		savedTools.add(savedTool6);
+		colorButtons.add(savedTool6);
 		
 		savedToolBar.add(Box.createVerticalGlue());
 		myMenu.add(savedToolBar);
 		savedToolBar.add(new JLabel("Saved Tools"));
 	
-
+		
+		
 		thickness = new JSlider(JSlider.VERTICAL, 0, 50, 25);
 		thickness.addChangeListener(this);
 		thickness.setMajorTickSpacing(10);
 		thickness.setPaintTicks(true);
 		thickness.setLabelTable(thickness.createStandardLabels(10));
 		thickness.setPaintLabels(true);
+		
 		myMenu.add(thickness);
 
 		
-		eraser = new JButton("Eraser");
+		eraser = new JRadioButton("Eraser");
 		eraser.addActionListener(this);
+		colorButtons.add(eraser);
 		myMenu.add(eraser);
 
-		saveTool = new JButton("Save");
+		saveTool = new JButton("Save Tool");
 		saveTool.addActionListener(this);
 		myMenu.add(saveTool);
 
-		myMenu.add(new JLabel("Tools"));
+		
 		
 		currentTool = new Tool(Color.BLACK, 10);
 
@@ -156,7 +209,7 @@ public class ToolBar implements ActionListener, ChangeListener {
 			currentTool = new Tool(Color.BLUE, currentTool.getThickness());
 		} else if (s.getText().equals("Green")) {
 			currentTool = new Tool(Color.GREEN, currentTool.getThickness());
-		} else if (s.getText().equals("Save")) {
+		} else if (s.getText().equals("Save Tool")) {
 			if (savedTools <= 5) {
 				tools[savedTools] = new Tool(currentTool.getColor(), currentTool.getThickness());
 				savedTools++;
